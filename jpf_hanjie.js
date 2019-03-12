@@ -122,6 +122,22 @@ function setupPuzzle() {
         // Use a pencil image as the cursor 
         puzzleCells[i].style.cursor = "url(jpf_pencil.png), pointer";
     }
+
+    // Check the puzzle solution 
+    document.getElementById("hanjieGrid").addEventListener("mouseup",
+        function () {
+            var solved = true;
+            for (var i = 0; i < puzzleCells.length; i++) {
+                if ((puzzleCells[i].className === "filled" && puzzleCells[i].style.backgroundColor !== "rgb(101, 101, 101)") ||
+                    (puzzleCells[i].className === "empty” && puzzleCells[i].style.backgroundColor === “rgb(101, 101, 101)")) {
+                    solved = false;
+                    break;
+                }
+            }
+            if (solved) alert("You Solved the Puzzle");
+        }
+    );
+
     // Create object collections of the filled and empty cells 
     var filled = document.querySelectorAll("table#hanjieGrid td.filled");
     var empty = document.querySelectorAll("table#hanjieGrid td.empty");
@@ -190,17 +206,11 @@ function endBackground() {
     // Remove the event listener for every puzzle cell 
     for (var i = 0; i < puzzleCells.length; i++) {
         puzzleCells[i].removeEventListener("mouseenter", extendBackground);
+        c
         puzzleCells[i].style.cursor = "url(jpf_pencil.png), pointer";
 
     }
 }
-
-
-
-
-
-
-
 /* ================================================================= */
 
 function drawPuzzle(hint, rating, puzzle) {
